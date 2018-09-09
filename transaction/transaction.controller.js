@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Transaction = require('./transaction.model');
 
-exports.getAllTransactions = (req, res) => { // get only user's transactions
+exports.getAllTransactions = (req, res) => { // get only Account's transactions
 	Transaction.find()
 	.exec((err, data) => {
 		if (err) {

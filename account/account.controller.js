@@ -1,9 +1,9 @@
 'use strict';
 const mongoose = require('mongoose');
-const User = require('./user.model');
+const Account = require('./account.model');
 
-exports.getAllUsers = (req, res) => {
-	User.find()
+exports.getAllAccounts = (req, res) => {
+	Account.find()
 	.exec((err, data) => {
 		if (err) {
 			console.log(err);
@@ -13,7 +13,7 @@ exports.getAllUsers = (req, res) => {
 	});
 }
 /*
-+ addUser()
-+ getUser()
++ addAccount()
++ getAccount()
 + getAll()
 */

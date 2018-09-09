@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Portfolio = require('./portfolio.model');
 
-exports.getAllPortfolios = (req, res) => { // get only user's portfolio
+exports.getAllPortfolios = (req, res) => { // get only Account's portfolio
 	Portfolio.find()
 	.exec((err, data) => {
 		if (err) {
