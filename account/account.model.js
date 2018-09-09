@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 
-const User = mongoose.Schema({
+const Account = mongoose.Schema({
 	date: Date,
 	email: String,
 	password: String,
@@ -11,7 +11,7 @@ const User = mongoose.Schema({
 	transactions: Array
 })
 
-module.exports = mongoose.model('User', User, 'user');
+module.exports = mongoose.model('Account', Account, 'account');
 
 /*
 date
