@@ -12,12 +12,13 @@
 	- [x] Sign up
 	- [x] Sign in
 - [ ] Page mockups
+	- [ ] [Header and Footer](https://wireframe.cc/)
 	- [ ] Home
 	- [ ] Landing
 	- [x] Market View
 		- [x] [grid view](https://wireframe.cc/6lapy6)
 		- [x] [list view](https://wireframe.cc/8Wsa4O)
-	- [ ] [Stock]()
+	- [x] [Stock](https://wireframe.cc/OLjSTq)
 	- [ ] [Transactions]()
 	- [ ] [Portfolio]()
 	- [ ] [Account]()
@@ -26,10 +27,12 @@
 - [x] Configure environment variables in `config`
 	- [x] Database URL
 	- [x] Port
-- [x] Configure variables in `.env`
+- [x] Configure variables in `.env` ([reference](https://www.npmjs.com/package/dotenv))
 	- [x] Database URL
 	- [x] Port
-- [x] Simple server
+	- [x] Alpha Vantage API key
+- [x] Server
+	- [x] Allow module export
 - [x] Models, controllers, routes
 	- [x] Account
 	- [x] Stock
