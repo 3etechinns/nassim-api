@@ -1,6 +1,11 @@
 # Kurtosis API
 - Backend for a mock stock trading app.
 
+## Stack
+- Server: Node.js, Express.js
+- Database: MongoDB Atlas, Google Cloud
+- Deployment: Heroku, Netlify, Travis CI
+
 ## Planning
 - [ ] [Data model and data flow diagrams](https://www.lucidchart.com/invitations/accept/a3d05af8-7701-45f3-9d95-aea6e53bf1fe)
 	- [x] Data model
