@@ -1,5 +1,5 @@
 # Nassim API
-- Backend for a mock stock trading app.
+- Backend for a stock trading app.
 - See [Nassim React](https://github.com/elainechan/nassim-react) for frontend.
 
 ## Stack
