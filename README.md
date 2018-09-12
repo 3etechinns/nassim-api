@@ -1,4 +1,4 @@
-# Kurtosis API
+# Nassim API
 - Backend for a mock stock trading app.
 
 ## Stack
