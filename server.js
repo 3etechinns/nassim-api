@@ -2,6 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 
 // model
@@ -22,6 +24,17 @@ app.use('/account', accountRouter);
 app.use('/portfolio', portfolioRouter);
 app.use('/stock', stockRouter);
 app.use('/transaction', transactionRouter);
+passport.use(new GoogleStrategy({
+	clientID: process.env.GOOGLE_AUTH_CLIENT_ID,
+	clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+	callbackURL: "http://localhost:3000"
+},
+	function(accessToken, refreshToken, profile, cb) {
+		Account.findOrCreate({ googleId: profile.id }, function (err, user) {
+			return cb(err, user);
+		});
+	}
+));
 
 let server;
 function runServer(dbUrl, port=process.env.PORT) {
