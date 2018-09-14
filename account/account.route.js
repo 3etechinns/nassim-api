@@ -12,7 +12,11 @@ router.use((req, res, next) => {
 	next();
 });
 router.get('/all', controller.getAllAccounts);
-router.get('/auth-google', controller.googleSignIn);
+router.get('/auth/google', passport.authenticate('google'), controller.googleSignIn);
+
+// how to go to '/home' in the backend
+
+
 /*
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));

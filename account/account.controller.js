@@ -16,19 +16,12 @@ exports.getAllAccounts = (req, res) => {
 	});
 }
 
+// (note 1) http response to axios in frontend Account component
 exports.googleSignIn = (req, res) => {
-	// passport strategy
-	passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_AUTH_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000"
-  },
-		function(accessToken, refreshToken, profile, cb) {
-			Account.findOrCreate({ googleId: profile.id }, function (err, user) {
-				return cb(err, user);
-			});
-		}
-	));
+	console.log('googleSignIn');
+	// only executes if authentication passes
+	return res.status(200).json(req.user);
+	// redirect to '/home'
 }
 /*
 + addAccount()
