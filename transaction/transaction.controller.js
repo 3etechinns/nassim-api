@@ -13,9 +13,20 @@ exports.getAllTransactions = (req, res) => { // get only Account's transactions
 	});
 }
 
+exports.createTransaction = (req, res) => {
+	Transaction.create({
+		date: req.body.date,
+		type: req.body.type,
+		symbol: req.body.symbol,
+		name: req.body.name,
+		price: req.body.price,
+		quantity: req.body.quantity,
+		totalValue: (req.body.price * req.body.quantity)
+	}).save();
+}
+
 /*
 getTransactions(): Array
 + getTransactionsWithRange(dateRange) - Array.filter() get transactions within a date range
 + getValueWithRange(dateRage) - get net transaction value within a date range
-+ addTransaction()
 */
