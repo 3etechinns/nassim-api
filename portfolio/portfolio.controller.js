@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Portfolio = require('./portfolio.model');
 
-exports.getAllPortfolios = (req, res) => { // get only Account's portfolio
+exports.getAllPortfolios = (req, res) => { // get only Account's portfolio(s)
 	Portfolio.find()
 	.exec((err, data) => {
 		if (err) {
@@ -11,6 +11,10 @@ exports.getAllPortfolios = (req, res) => { // get only Account's portfolio
 		}
 		return res.status(200).send(data);
 	});
+}
+
+exports.createPortfolio = (req, res) => {
+	Portfolio.create()
 }
 
 exports.updateOnePortfolio = (req, res) => {
