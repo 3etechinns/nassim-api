@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Transaction = mongoose.Schema({
 	date: Date,
 	type: String,
-	stock: String,
+	symbol: String,
+	name: String,
 	price: Number,
 	quantity: Number,
 	totalValue: Number
