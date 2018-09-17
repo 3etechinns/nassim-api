@@ -12,6 +12,10 @@ exports.getAllPortfolios = (req, res) => { // get only Account's portfolio
 		return res.status(200).send(data);
 	});
 }
+
+exports.updateOnePortfolio = (req, res) => {
+	Portfolio.updateOne({});
+}
 /*
 + getPortfolioValueChange(dateRange) - get change in portfolio value within a date range
 + getSecurityValue(quantity) - price * quantity
