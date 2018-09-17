@@ -22,7 +22,13 @@ exports.createTransaction = (req, res) => {
 		price: req.body.price,
 		quantity: req.body.quantity,
 		totalValue: (req.body.price * req.body.quantity)
-	}).save();
+	}).save((err, data) => {
+		if (err) {
+			console.log(err);
+			return res.status(400);
+		}
+		return res.status(201).send(data);
+	});
 }
 
 /*
