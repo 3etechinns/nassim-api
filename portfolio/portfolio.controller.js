@@ -12,7 +12,7 @@ exports.getPortfolio = (req, res) => {
 		return res.status(200).send(data);
 	});
 }
-
+// account?
 exports.createPortfolio = (req, res) => {
 	const requiredFields = ['date', 'totalValue', 'symbol', 'name', 'quantity'];
 	requiredFields.map(field => {
@@ -23,6 +23,7 @@ exports.createPortfolio = (req, res) => {
 			return;
 		}
 	});
+	// holdings can contain many different symbols...
 	Portfolio.create({
 		date: req.body.date,
 		totalValue: req.body.totalValue,

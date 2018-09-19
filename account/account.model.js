@@ -8,7 +8,8 @@ const Account = mongoose.Schema({
 	cash: Number,
 	assets: Number,
 	portfolios: Array,
-	transactions: Array
+	transactions: Array,
+	holdings: Array
 })
 
 module.exports = mongoose.model('Account', Account, 'account');
