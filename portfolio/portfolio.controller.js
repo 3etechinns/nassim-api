@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Portfolio = require('./portfolio.model');
 
-exports.getAllPortfolios = (req, res) => { // get only Account's portfolio(s)
+exports.getPortfolio = (req, res) => {
 	Portfolio.find()
 	.exec((err, data) => {
 		if (err) {
@@ -14,10 +14,38 @@ exports.getAllPortfolios = (req, res) => { // get only Account's portfolio(s)
 }
 
 exports.createPortfolio = (req, res) => {
-	Portfolio.create()
+	const requiredFields = ['date', 'totalValue', 'symbol', 'name', 'quantity'];
+	requiredFields.map(field => {
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body.`;
+			console.error(message);
+			res.status(400).send(message);
+			return;
+		}
+	});
+	Portfolio.create({
+		date: req.body.date,
+		totalValue: req.body.totalValue,
+		totalValueChange: 0,
+		holdings: [{
+			symbol: req.body.symbol,
+			name: req.body.name,
+			quantity: req.body.quantity
+		}]
+	}, (err, data) => {
+		if (err) {
+			handleError(err);
+			return;
+		} else {
+			res.status(201).json({
+				portfolio: data
+			});
+			return;
+		}
+	})
 }
 
-exports.updateOnePortfolio = (req, res) => {
+exports.updatePortfolio = (req, res) => {
 	Portfolio.updateOne({});
 }
 /*

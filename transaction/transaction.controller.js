@@ -12,8 +12,17 @@ exports.getAllTransactions = (req, res) => { // get only Account's transactions
 		return res.status(200).send(data);
 	});
 }
-
+// how to get user id?
 exports.createTransaction = (req, res) => {
+	const requiredFields = ['date', 'type', 'symbol', 'name', 'price', 'quantity', 'totalValue'];
+	requiredFields.map(field => {
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body.`;
+			console.error(message);
+			res.status(400).send(message);
+			return;
+		}
+	});
 	Transaction.create({
 		date: req.body.date,
 		type: req.body.type,
@@ -21,13 +30,17 @@ exports.createTransaction = (req, res) => {
 		name: req.body.name,
 		price: req.body.price,
 		quantity: req.body.quantity,
-		totalValue: (req.body.price * req.body.quantity)
-	}).save((err, data) => {
+		totalValue: req.body.totalValue
+	}, (err, data) => {
 		if (err) {
-			console.log(err);
-			return res.status(400);
+			handleError(err);
+			return;
+		} else {
+			res.status(201).json({
+				transaction: data
+			});
+			return;
 		}
-		return res.status(201).send(data);
 	});
 }
 
