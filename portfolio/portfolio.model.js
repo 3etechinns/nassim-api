@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Portfolio = mongoose.Schema({
 	date: Date,
 	totalValue: Number,
-	totalValueChange: Number
+  totalValueChange: Number,
+  holdings: []
 })
 
 module.exports = mongoose.model('Portfolio', Portfolio, 'portfolio');

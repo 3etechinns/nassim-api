@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const controller = require('./portfolio.controller');
 
-router.get('/all', controller.getAllPortfolios);
-router.get('/update-one', controller.updateOnePortfolio);
+router.get('/', controller.getPortfolio);
+router.post('/', controller.createPortfolio)
+router.patch('/', controller.updatePortfolio);
 
 module.exports = router;

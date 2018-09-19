@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./account.controller');
+const passport = require('passport');
 
 // Allow CORS; can be put in server for broader access
 router.use((req, res, next) => {
