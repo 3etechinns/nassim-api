@@ -1,6 +1,8 @@
 'use strict';
 const mongoose = require('mongoose');
 
+// TODO
+// reference Account _id
 const Portfolio = mongoose.Schema({
 	date: Date,
 	totalValue: Number,

@@ -5,6 +5,7 @@ const Account = require('./account.model');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 
+// Only allowed for administrator role
 exports.getAllAccounts = (req, res) => {
 	Account.find()
 	.exec((err, data) => {
@@ -23,8 +24,11 @@ exports.googleSignIn = (req, res) => {
 	return res.status(200).json(req.user);
 	// redirect to '/home'
 }
-/*
-+ addAccount()
-+ getAccount()
-+ getAll()
-*/
+
+// TODO
+// addAccount() === register()
+	// createPortfolio() assigned to Account
+// getAccount()
+// sign in
+// verify token
+// add Portfolio _id reference in register

@@ -12,7 +12,9 @@ exports.getPortfolio = (req, res) => {
 		return res.status(200).send(data);
 	});
 }
-// account?
+// TODO
+// change this to:
+// upon Register(), create empty portfolio
 exports.createPortfolio = (req, res) => {
 	const requiredFields = ['date', 'totalValue', 'symbol', 'name', 'quantity'];
 	requiredFields.map(field => {

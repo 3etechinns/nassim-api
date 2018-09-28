@@ -1,6 +1,8 @@
 'use strict';
 const mongoose = require('mongoose');
 
+// TODO
+// should reference Portfolio _id
 const Account = mongoose.Schema({
 	date: Date,
 	email: String,
