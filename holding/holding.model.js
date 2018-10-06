@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 
 const Holding = mongoose.Schema({
+	portfolio: mongoose.Schema.Types.ObjectId,
 	symbol: String,
 	name: String,
 	quantity: Number,

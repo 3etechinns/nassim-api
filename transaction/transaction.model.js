@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 
 const Transaction = mongoose.Schema({
+	account: mongoose.Schema.Types.ObjectId,
 	date: Date,
 	type: String,
 	symbol: String,
@@ -9,7 +10,7 @@ const Transaction = mongoose.Schema({
 	price: Number,
 	quantity: Number,
 	totalValue: Number
-})
+});
 
 module.exports = mongoose.model('Transaction', Transaction, 'transaction');
 /*
