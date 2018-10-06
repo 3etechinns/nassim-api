@@ -9,8 +9,14 @@ const Account = mongoose.Schema({
 	password: String,
 	cash: Number,
 	assets: Number,
-	portfolios: Array,
-	transactions: Array,
+	portfolios: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Portfolio'
+	}],
+	transactions: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Transaction'
+	}],
 	holdings: Array
 })
 
