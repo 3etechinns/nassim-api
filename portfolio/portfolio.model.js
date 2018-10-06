@@ -1,11 +1,16 @@
 'use strict';
 const mongoose = require('mongoose');
 
+// TODO
+// reference Account _id
 const Portfolio = mongoose.Schema({
 	date: Date,
-	totalValue: Number,
-  totalValueChange: Number,
-  holdings: []
+	portfolioValue: Number,
+  portfolioValueChange: Number,
+  holdings: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Holding'
+  }]
 })
 
 module.exports = mongoose.model('Portfolio', Portfolio, 'portfolio');
