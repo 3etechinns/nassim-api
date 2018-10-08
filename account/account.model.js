@@ -17,7 +17,10 @@ const Account = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Transaction'
 	}],
-	holdings: Array
+	holdings: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Holding'
+  }]
 })
 
 module.exports = mongoose.model('Account', Account, 'account');
