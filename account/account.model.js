@@ -1,5 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 // TODO
 // should reference Portfolio _id
@@ -21,7 +22,19 @@ const Account = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Holding'
   }]
-})
+});
+
+Account.methods.validatePassword = function(password) {
+	return bcrypt.compare(password, this.password);
+}
+
+Account.methods.hashPassword = function(password) {
+	return bcrypt.hash(password, 10);
+}
+
+Account.methods.comparePasswords = function(password) {
+	return bcrypt.compareSync(password, this.password);
+}
 
 module.exports = mongoose.model('Account', Account, 'account');
 

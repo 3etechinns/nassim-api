@@ -1,10 +1,10 @@
 'use strict';
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-require('dotenv').config();
 
 // model
 const Account = require('./account/account.model');
@@ -24,6 +24,11 @@ app.use('/account', accountRouter);
 app.use('/portfolio', portfolioRouter);
 app.use('/stock', stockRouter);
 app.use('/transaction', transactionRouter);
+
+// auth
+app.use(passport.initialize()); // initialize passport
+app.use(passport.session()); // persist login sessions
+
 passport.use(new GoogleStrategy({
 	clientID: process.env.GOOGLE_AUTH_CLIENT_ID,
 	clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,

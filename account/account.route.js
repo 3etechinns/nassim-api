@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const controller = require('./account.controller');
+const { getAllAccounts, googleSitnIn, register } = require('./account.controller');
 const passport = require('passport');
 
 // Allow CORS; can be put in server for broader access
@@ -12,8 +12,9 @@ router.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
-router.get('/all', controller.getAllAccounts);
-router.get('/auth/google', passport.authenticate('google'), controller.googleSignIn);
+router.get('/all', getAllAccounts);
+router.get('/auth/google', passport.authenticate('google'), googleSignIn);
+router.get('/auth/register');
 
 // how to go to '/home' in the backend
 
