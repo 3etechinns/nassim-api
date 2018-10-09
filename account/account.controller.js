@@ -25,6 +25,10 @@ exports.googleSignIn = (req, res) => {
 	// redirect to '/home'
 }
 
+exports.register = (req, res) => {
+	
+}
+
 // TODO
 // addAccount() === register()
 	// createPortfolio() assigned to Account
