@@ -3,12 +3,15 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
-const { Account } = require('../account/account.model');
+const Account = require('../account/account.model'); // without curly brackets
 
 exports.register = (req, res) => {
-	Account.findOne({	email: req.body.email })
+	console.log(`req.body.email in auth.controller: ${req.body.email}`)
+	Account.find({	email: req.body.email })
 		.then(exists => {
-			if (exists) {
+			console.log(`exists in Account.find(): ${exists}`)
+			console.log(`exists === true: ${exists === true}`);
+			if (exists !== '') {
 				res.status(307).json({
 					message: 'Account already exists.'
 				});
@@ -41,7 +44,8 @@ exports.register = (req, res) => {
 		})
 		.catch(err => {
 			res.status(500).json({
-				message: 'Something happened during the registration process.'
+				message: 'Something happened during the registration process.',
+				data: err
 			})
 		});
 }
