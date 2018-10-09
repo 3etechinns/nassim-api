@@ -17,18 +17,6 @@ exports.getAllAccounts = (req, res) => {
 	});
 }
 
-// (note 1) http response to axios in frontend Account component
-exports.googleSignIn = (req, res) => {
-	console.log('googleSignIn');
-	// only executes if authentication passes
-	return res.status(200).json(req.user);
-	// redirect to '/home'
-}
-
-exports.register = (req, res) => {
-	
-}
-
 // TODO
 // addAccount() === register()
 	// createPortfolio() assigned to Account

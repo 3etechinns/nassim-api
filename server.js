@@ -3,43 +3,26 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // model
 const Account = require('./account/account.model');
 const Portfolio = require('./portfolio/portfolio.model');
 const Stock = require('./stock/stock.model');
 const Transaction = require('./transaction/transaction.model');
-
 // routes
+const authRouter = require('./auth/auth.route');
 const accountRouter = require('./account/account.route');
 const portfolioRouter = require('./portfolio/portfolio.route');
 const stockRouter = require('./stock/stock.route');
 const transactionRouter = require('./transaction/transaction.route');
-// app
+// use routes in app
 const app = express();
 app.use(bodyParser.json());
+app.use('/auth', authRouter);
 app.use('/account', accountRouter);
 app.use('/portfolio', portfolioRouter);
 app.use('/stock', stockRouter);
 app.use('/transaction', transactionRouter);
-
-// auth
-app.use(passport.initialize()); // initialize passport
-app.use(passport.session()); // persist login sessions
-
-passport.use(new GoogleStrategy({
-	clientID: process.env.GOOGLE_AUTH_CLIENT_ID,
-	clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
-	callbackURL: "http://localhost:3000"
-},
-	function(accessToken, refreshToken, profile, cb) {
-		Account.findOrCreate({ googleId: profile.id }, function (err, user) {
-			return cb(err, user);
-		});
-	}
-));
 
 let server;
 function runServer(dbUrl, port=process.env.PORT) {
@@ -61,6 +44,7 @@ function runServer(dbUrl, port=process.env.PORT) {
 		})
 	})
 }
+
 function closeServer() {
 	return new Promise((resolve, reject) => {
 		console.log('Closing server...');

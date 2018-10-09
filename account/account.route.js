@@ -12,9 +12,9 @@ router.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
-router.get('/all', getAllAccounts);
-router.get('/auth/google', passport.authenticate('google'), googleSignIn);
+router.get('/all/:token', getAllAccounts);
 router.get('/auth/register');
+
 
 // how to go to '/home' in the backend
 
