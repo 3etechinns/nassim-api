@@ -1,83 +1,80 @@
 'use strict';
 require('dotenv').config();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
-const { Account } = require('../account/account.model');
+const Account = require('../account/account.model'); // without curly brackets
 
 exports.register = (req, res) => {
-	Account.findOne({	email: req.body.email })
-		.then(exists => {
-			if (exists) {
-				res.status(307).json({
+	console.log(`req.body.email in auth.controller: ${req.body.email}`)
+
+	Account.findOne({	email: req.body.email }, (err, account) => {
+		if (err) {
+			res.status(500).json({message: "Something happened while registering."});
+			return;
+		}
+		if (account) {
+			res.status(307).json({
 					message: 'Account already exists.'
-				});
-				return;
-			} else {
-				let newAccount = new Account();
-				newAccount.email = req.body.email;
-				newAccount.hashPassword(password)
+			});
+			return;
+		}
+		let newAccount = new Account();
+		newAccount.email = req.body.email;
+		newAccount.hashPassword(req.body.password)
 					.then(hashed => {
-						newAccount.password = hashed;
-						newAccount.save()
-							.then(account => {
-								res.status(201).json({
-									message: 'The account has been created.',
-									data: account
-								});
-							})
-							.catch(err => {
-								res.status(500).json({
-									message: 'Something happened while saving account.'
-								});
-							});
+							newAccount.password = hashed;
+							newAccount.save()
+									.then(account => {
+											res.status(201).json({
+													message: 'The account has been created.',
+													data: account
+											});
+									})
+									.catch(err => {
+											res.status(500).json({
+													message: 'Something happened while saving account.'
+											});
+									});
 					})
 					.catch(err => {
-						res.status(500).json({
-							message: 'Something happened while encrypting password.'
-						});
+							res.status(500).json({
+									message: 'Something happened while encrypting password.'
+							});
 					});
-			}
-		})
-		.catch(err => {
-			res.status(500).json({
-				message: 'Something happened during the registration process.'
-			})
-		});
+	});
 }
 
 exports.login = (req, res) => {
-	Account.findOne({ email: req.body.email })
-		.then(account => {
-			if (!account) {
-				res.status(404).json({
-					message: 'User not found.'
-				});
-				return;
-			} else if (!account.comparePasswords(req.body.password)) { // passwords don't match
-				res.status(401).json({
-					message: 'Incorrect email or password.'
-				});
-				return;
-			} else {
-				let user = {
-					userId: user._id,
-					email: user.email
-				};
-				let token = jwt.sign(user, JWT_SECRET);
-				res.status(201).json({
-					message: 'Token has been generated.',
-					data: {
-						token: token,
-						email: user.email,
-						userId: user._id 
-					}
-				});
+	Account.findOne({ email: req.body.email }, (err, account) => {
+		if (err) {
+			res.status(500).json({message: "Something happened while logging in."});
+			return;
+		}  
+		if (!account) {
+			res.status(404).json({
+				message: 'User not found.'
+			});
+			return;
+		} 
+		if (!account.comparePasswords(req.body.password)) {
+			res.status(401).json({
+				message: 'Incorrect email or password.'
+			});
+			return;
+		}
+		let user = {
+			userId: account._id,
+			email: account.email
+		};
+		let token = jwt.sign(user, JWT_SECRET);
+		res.status(200).json({
+			message: 'Token has been generated.',
+			data: {
+				token: token,
+				email: account.email,
+				userId: account._id 
 			}
-		})
-		.catch(err => {
-			res.status(500).json({
-				message: 'Something happened during the login process.'
-			})
 		});
+	})
 }

@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./transaction.controller');
+const { verifyToken } = require('../auth/auth.verification');
 
 router.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // can use specific domain
@@ -10,7 +11,7 @@ router.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
-router.get('/all', controller.getAllTransactions);
-router.post('/all', controller.createTransaction);
+router.get('/all/:token', verifyToken, controller.getAllTransactions);
+router.post('/all/:token', verifyToken, controller.createTransaction);
 
 module.exports = router;

@@ -1,9 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
-// TODO
-// should reference Portfolio _id
 const Account = mongoose.Schema({
 	date: Date,
 	email: String,
@@ -36,7 +34,7 @@ Account.methods.comparePasswords = function(password) {
 	return bcrypt.compareSync(password, this.password);
 }
 
-module.exports = mongoose.model('Account', Account, 'account');
+module.exports = mongoose.model('Account', Account, 'account'); // without curly brackets when requiring
 
 /*
 date

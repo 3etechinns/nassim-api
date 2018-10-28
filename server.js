@@ -24,6 +24,8 @@ app.use('/portfolio', portfolioRouter);
 app.use('/stock', stockRouter);
 app.use('/transaction', transactionRouter);
 
+mongoose.Promise = global.Promise;
+
 let server;
 function runServer(dbUrl, port=process.env.PORT) {
 	return new Promise((resolve, reject) => {
