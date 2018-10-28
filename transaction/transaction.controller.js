@@ -2,8 +2,9 @@
 const mongoose = require('mongoose');
 const Transaction = require('./transaction.model');
 
-exports.getAllTransactions = (req, res) => { // get only Account's transactions
-	Transaction.find()
+exports.getAllTransactions = (req, res) => { 
+	// get only that Account's transactions
+	Transaction.find({account: req.user.id})
 	.exec((err, data) => {
 		if (err) {
 			console.log(err);
@@ -12,9 +13,9 @@ exports.getAllTransactions = (req, res) => { // get only Account's transactions
 		return res.status(200).send(data);
 	});
 }
-// how to get user id?
+// ??? how to get user id?
 exports.createTransaction = (req, res) => {
-	const requiredFields = ['date', 'type', 'symbol', 'name', 'price', 'quantity', 'totalValue'];
+	const requiredFields = ['account','date', 'type', 'symbol', 'name', 'price', 'quantity', 'totalValue'];
 	requiredFields.map(field => {
 		if (!(field in req.body)) {
 			const message = `Missing \`${field}\` in request body.`;
@@ -24,6 +25,7 @@ exports.createTransaction = (req, res) => {
 		}
 	});
 	Transaction.create({
+		account: req.body.account,
 		date: req.body.date,
 		type: req.body.type,
 		symbol: req.body.symbol,
