@@ -1,10 +1,11 @@
 'use strict';
 const mongoose = require('mongoose');
+const ObjectId = require('mongoose').Types.ObjectId; 
 const Transaction = require('./transaction.model');
 
 exports.getAllTransactions = (req, res) => { 
 	// get only that Account's transactions
-	Transaction.find({account: req.user.id})
+	Transaction.find({account: ObjectId(req.user.userId)})
 	.exec((err, data) => {
 		if (err) {
 			console.log(err);
