@@ -20,9 +20,10 @@ exports.getPortfolio = (req, res) => {
 					let key = val.symbol;
 					if (!queryResult[key]) {
 						queryResult[key] = {
+							name: val.name,
 							totalValue: val.totalValue,
-							totalQuantity: val.quantity,
-							counter: 1,
+							quantity: val.quantity,
+							trades: 1,
 							transactions: new Array(val)
 						}
 					} else {
