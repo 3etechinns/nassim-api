@@ -1,16 +1,40 @@
 'use strict';
 const mongoose = require('mongoose');
+const ObjectId = require('mongoose').Types.ObjectId; 
+
 const Portfolio = require('./portfolio.model');
+const Transaction = require('../transaction/transaction.model');
 
 exports.getPortfolio = (req, res) => {
-	Portfolio.find()
-	.exec((err, data) => {
-		if (err) {
-			console.log(err);
-			return res.status(400);
-		}
-		return res.status(200).send(data);
-	});
+	Transaction.find({account: ObjectId(req.user.userId)})
+			.exec((err, data) => {
+				if (err) {
+					console.log(err);
+					return res.status(400);
+				}
+				let queryResult = {};
+				data.forEach((val, i) => {
+					console.log(val);
+					// get all values of val.symbol
+					// get count of each value of val.symbol
+					let key = val.symbol;
+					if (!queryResult[key]) {
+						queryResult[key] = {
+							name: val.name,
+							totalValue: val.totalValue,
+							quantity: val.quantity,
+							trades: 1,
+							transactions: new Array(val)
+						}
+					} else {
+						queryResult[key].totalValue += val.totalValue;
+						queryResult[key].totalQuantity += val.quantity;
+						queryResult[key].counter += 1;
+						queryResult[key].transactions.push(val);
+					}
+				});
+				return res.status(200).send(queryResult);
+			})
 }
 // TODO
 // change this to:

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const ObjectId = require('mongoose').Types.ObjectId; 
 const Transaction = require('./transaction.model');
 
+
 exports.getAllTransactions = (req, res) => { 
 	// get only that Account's transactions
 	Transaction.find({account: ObjectId(req.user.userId)})
@@ -14,6 +15,9 @@ exports.getAllTransactions = (req, res) => {
 		return res.status(200).send(data);
 	});
 }
+
+
+
 // ??? how to get user id?
 exports.createTransaction = (req, res) => {
 	const requiredFields = ['account','date', 'type', 'symbol', 'name', 'price', 'quantity', 'totalValue'];

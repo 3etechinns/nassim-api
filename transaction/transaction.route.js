@@ -11,6 +11,7 @@ router.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
+
 router.get('/all/:token', verifyToken, controller.getAllTransactions);
 router.post('/all/:token', verifyToken, controller.createTransaction);
 
