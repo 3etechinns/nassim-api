@@ -35,7 +35,7 @@ function runServer(dbUrl, port=process.env.PORT) {
 				return reject(err);
 			}
 			// Start server
-			server = app.listen(port, () => {
+			server = app.listen(5000, () => {
 				console.log(`Listening on port ${port}...`);
 				resolve();
 			})
